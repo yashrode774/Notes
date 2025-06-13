@@ -13,7 +13,7 @@
 - **Isolation**: Each transaction should be isolated from others.
 - **Durability**: If the transaction is committed, its changes are permanently stored even if the system goes down.
 
-# Java Basics (By Tanishq)
+# Java Basics
 
 ## JDK, JRE, JVM
 
@@ -370,8 +370,8 @@ for (int i = 0; i < categories.length; i++) {
 ### Creating Strings
 
 ```java
-String s = "Tanishq";                     // String literal, stored in string pool
-String s = new String("Tanishq");         // String object, created in heap
+String s = "teststring";                     // String literal, stored in string pool
+String s = new String("teststring");         // String object, created in heap
 ```
 
 ### Common String Methods
