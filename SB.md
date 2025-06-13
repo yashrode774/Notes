@@ -1,7 +1,6 @@
-**# Spring boot notes.
+# Spring boot notes.
 
 ## Annotations
-
 - @SpringBootApplication - Marks the main class of a Spring Boot application.
   - @Configuration - Declares this class contains Spring configuration. (No need to create bin for this class just create beans for @Bean)
   - @EnableAutoConfiguration - Automatically creates beans based on dependencies in spring IOC.
