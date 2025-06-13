@@ -1,0 +1,767 @@
+-- Solid principles:
+Single responsibility: Every method/class(Entity) should have single responsibility.
+Open/closed principle: Entities should be open for extension/closed for modification.
+Liskov substitution principle: Object of the parent class should be replaceable by object of the child class.
+Interface segregation: Prefer many small interfaces over several bigger ones.
+Dependency inversion: High level modules should depend on Interface than concrete classes.
+
+
+-- ACID properties of database:
+Atomicity: A transaction(set of instructions) should either be completed or failed(rolled back).
+Consistency: database should go from one consistent state of database to another
+Isolation: Each transaction should be isolated from the other transaction
+Durable: If the transaction is commited, it's changes are permanently stored even if the system goes down.
+
+Java: By Tanishq
+
+-JDK:It is the tool necessary to compile, document and package Java programs.(JRE+Development tools)
+-JRE(Java Runtime Environment):JRE refers to a runtime environment in which Java bytecode can be executed(provide Libraries).
+-JVM(runtime environment):It is an abstract machine. It is a specification that provides a run-time environment in which Java bytecode can be executed.
+
+A Java virtual machine (JVM) is a virtual machine that enables a computer to run Java programs as well as programs written in other languages that are also compiled to Java bytecode.
+
+-Singleton class :is a class whose only one instance can be created at any given time, in one JVM. A class can be made singleton by making its constructor private.
+static public getInstance() returns the static member of same class type.
+
+class SingleTon {
+    private static SingleTon obj;
+    private SingleTon() {
+    }
+    public static SingleTon getInstance() { // Add `synchronized` to make work for multiThreaded env.
+        if (obj == null) {
+            obj = new SingleTon();
+        }
+        return obj;
+    }
+}
+
+-JIT(Java Intime Compiler): (Code optimization can be done while the code is running.) Byte Code into Native machine Code.
+compiler is enabled by default, and is activated when a Java method is called.
+The JIT compiler compiles the bytecode of that method into native machine code, compiling it "just in time" to run.
+improving the performance of Java programs by compiling bytecode into native machine code at run time.
+
+
+-Javac: compiler converts Java programming language(.java) into byte-code and convert it into .class file.
+If one file contain more than one class each class creates its own .class file.
+
+Java is platform independent because byte code(platform independent) can be execued any where on any os the Output will be same.
+
+1.Datatypes in Java
+
+-Java is strongly typed language.
+-implicit conversion or assignment of 1 datatype to other is not possible.
+-All primitive datatypes of java are primitive types of JVM, except boolean is represented using byte or int
+when Java source code is converted into byte code.
+- primitive types Java : byte,short,int,long,char,float,double,boolean.
+- primitive types JVM : byte,short,int,long,char,float,double,return value.
+
+--Size of Datatype:
+-Size is not defined but ranges are defined.
+-WordSize is a basic unit of size for data values in JVM chosen by designer of each JVM implementation.
+-word size is large enough to hold value of type byte,short ,int ,char,float,return value, reference.
+-two word to hold long or double.
+- Word size is usually chosen as a size of a native pointer on host platform.
+
+--Reference types: variables of reference types hold reference values but are not object.
+-Class type.
+-Interface type.
+-Array type.
+-null type : reference does not refer to any object.
+
+2. Objects in Java.
+- References are stored on stack and objects created using new are stored on heap.
+- Data members of object are implicitly initialised with default values.
+- object is the instance of class created by using new operator.
+
+--Identifying object and class.
+
+
+3.Classes in Java.
+
+-A class is a template or blueprint that is used for creating multiple objects.
+-A class encapsulates data member and member function of object.
+-packages are used to group the class that are locally related.
+-Default constructor is supplied by class when you don't write any.
+--Different types of variables
+-static variables(class variables) Method area and Instance variables.
+
+
+
+4.Boxing and Unboxing.   Auto-Boxing and Auto-Unboxing.
+
+--Integer iref= new Integer(33) //boxing
+ int yrs= iref.intValue()      // unboxing
+
+--Integer ref =77         //auto boxing .
+int val = new Integer(33) //auto unboxing.
+
+
+5.Taking Input in Java
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in))
+String str= br.readLine();
+
+-- Bufferedreader br --->String.
+ -InputStreamReader  --->Characters
+ -System.in          ---> STDIN keyboard (Bytes data.)
+
+--Scanner sc =  new Scanner(System.in)
+  int yrs = sc.nextInt()
+
+
+6.Arithmetic
+
+byte b1=1, b2=2, b3;
+b3=b1+b2;
+//Error : result is integer and b3 is byte.
+-Most of the operations from int or long. // This works as this is upcasting.
+
+--Examing conversions and Cast.
+
+- Java automatically convert value of one numeric type to a larger type(Upcasting).
+- byte -> Short-char  -> int -> long.
+
+- Java doesn't automatically down-cast.
+- We can force the compiler to convert from larger to small using explicit casting.
+- This can result in loss of data and un predictable results.
+- The >>> operator is the unsigned right bit-shift operator in Java.
+- Instance of operator used while down casting.
+- returns true if an object is an instance of a particular class.
+- An instance of subclass is also an instance of its superclass.
+don't check with the name of ref check with the name of object ref is pointing to.
+
+7.labeled break and labeled continue.
+
+8.Modifiers.
+
+----Class modifiers.
+
+Public: Any one can declare ref and can use public methods and members of that class. By default it is accessible only within its own package.
+abstract: Abstract class is an Incomplete class since it contains methods which may not have body and must be implemented by a sub-class. no Instance can be created.
+final: Final classes cannot be overridden by subclass.
+strictfp: All floating point arithmetic defined with the class evaluated strictly.
+
+*Program file may have several classes but only one among can be defined as public. Class name must be same as filename.
+so java file can have only one public class.(Driving class)
+
+----Field modifers
+-Access Modifiers
+-Static:Does not contribute to the size of the object. one copy created for every class.
+-Transient: transient field is one which we don't want to serialize or de-serialize. Serialize converting object to byte or bits. de-serialize is opp. This is done if we want object to be saved.
+-Volatile: (used in Syncronization)volatile field indicate copy of that field is not created in the local cache of thread instead it uses the one stored in main memory.
+If more than one thread are reffering volatile field they have to refer the same field and not the copy of that field.
+-Final : any attempt made to  change final variable gives compile-time error. the field cannot be simultaneously volatile and final.
+
+---Acess modifiers.
+-Default package.
+-private.
+-protected.
+-public.
+
+---Method Modifiers.
+-static: These methods can access only static fields and other static methods.
+-final   :method which cannot be overridden in sub-class. we can overload the method but cannot override.
+-native: A method that can be invoked using java programming language but return in native language like c,c++.public native void xyz(); Implemented by API provided by developers of JVM.
+Standard Interface for C,C++ methods is JNI(Java native Interface.)
+-strictFp:
+-synchronized: control monitor of related thread of program. Synchronized method are processed completely and Time slicing is Ignored.It won't switch to nxt task unless complete execution of syncronise method.
+-abstract: No body, implemented in Implementing subclass.
+
+
+9. Construction of Array of objects in Java is completely different. There is not such concept there is an array of class type reference.
+Point []arr;
+arr= new Point[3]  //Array obj containing 3 Class type reference pointing to 3 objects of class point.
+
+10. Packages and Imports.
+-Package provides namespace to class. If no package name is declared class falls into default package.
+-Package key word defines where is the class relative to other class.
+-import : other class or group of class you are using in your program. you can import single class or entire package .*. tells the compiler where to find the class.
+-static import imports static members of class . Syntax:     import static <pckgname>  import individual static member good practise or else it harm namespaces.
+
+--To Run a Java program you must define a main method in public Java class.Main method is automatically called  when program runs in commandline.main method is static so it is called without any object(class methods)
+
+11. Java class loader: loads class into memory
+- className.class.getClassLoader().loadClass("Employe")
+Bootstrap -> Loads from(JAVA_HOME/lib)
+Extension loader -> (JAVA_HOME/lib/ext)
+System class loader -> (src) project classes
+
+12.Garbage collection:
+- Scope of object reference depends upon whether the object is instantiated.
+- Java garbage collector recognizes when instance is no longer accessible and eligble for collecion.
+- In Idle cycles of JVM, memory which is ready to be deleted gets deleted.
+- There is mark and sweep phases.
+- There is concept of Young generation and old generation.
+
+----------------------------------------------------------------------
+13. Java is Pass by Value (for all assignment operations.)
+
+The key to understanding this is that something like
+
+Dog myDog;   // is not a Dog; it's actually a pointer to a Dog.
+
+What that means, is when you have
+
+Dog myDog = new Dog("Rover");
+foo(myDog);
+you're essentially passing the address of the created Dog object to the foo method.
+
+
+Suppose the Dog object resides at memory address 42. This means we pass 42 to the method.
+
+if the Method were defined as
+
+public void foo(Dog someDog) {
+    someDog.setName("Max");     // AAA
+    someDog = new Dog("Fifi");  // BBB
+    someDog.setName("Rowlf");   // CCC
+}
+let's look at what's happening.
+
+the parameter someDog is set to the value 42
+at line "AAA"
+someDog is followed to the Dog it points to (the Dog object at address 42)
+that Dog (the one at address 42) is asked to change his name to Max
+at line "BBB"
+a new Dog is created. Let's say he's at address 74
+we assign the parameter someDog to 74
+at line "CCC"
+someDog is followed to the Dog it points to (the Dog object at address 74)
+that Dog (the one at address 74) is asked to change his name to Rowlf
+then, we return
+Now let's think about what happens outside the method:
+
+Did myDog change?
+
+There's the key.
+
+Keeping in mind that myDog is a pointer, and not an actual Dog, the answer is NO. myDog still has the value 42;
+it's still pointing to the original Dog (but note that because of line "AAA", its name is now "Max" - still the same Dog;
+ myDog's value has not changed.)
+
+Hence, Java is call by value everytime.
+--------------------------------------------------------------------------------------
+
+14. 2D Array Creation In Java
+ int[][]marks;
+ marks = new int[3][]  //Array Object contaning 3 Array type ref.
+ marks[0] = new int[3] //first array type ref contain 1-D array of size 3.
+
+-Array is the collection of variable of same type
+-Items can be primitive of object type reference
+-Length is fixed when it is created.
+
+//Declaring Array of Primitives.
+1-D array
+ int []marks= new int[4];  //initially instance variable is initialize to 0
+ int []marks= {1,2,3,4,5};
+
+int pow[4] // Invalid Syntax
+
+//Declaring Array of Ref Type variable.
+String []categories = new String[3] //3 string type ref
+
+for(int i=0;i<categories.length();i++)
+{
+	categories[i]= new String(); //This is additionally when you are creating array of class type.
+}
+
+15. Strings in Java.
+-String is a class which is immutable(readOnly) values cannot be changed after object creation.
+-If you want to modify the contents of the string than you must use StringBuffer/StringBuilder class .
+-String class has a number of methods  that appears to modify the string, but  strings are immutable,
+ what these method actually do is create and return new String obj that contain result of operation
+
+-Creating Strings
+String s ="Tanishq";  String Literal // Stored in string pool.
+String s = new String("Tanishq") //creating String using constructor String Object.
+
+-----Functions on Strings.
+-+ or concat() method :   concatenate two strings or string with primitive.
+-length() : Find the length of String.
+-charAt() : Is used to get character at particular Index in String.
+-subString(int begin , int  endIndex):
+-toUpperCase(): convert to uppercase
+-toLowerCase(): convert to lowercase
+-trim : remove spaces
+-int indexOf(String str)
+-int lastIndexOf(String str)
+-equals()            :if you want case to count in Comparing Two String Objects.
+-equalsIgnoreCase()  :Case in-sensitive comparision.
+- //== Don't use compares References.
+
+----String Literal VS String Object
+-String literal are strored in common pool
+-Sharing of storage for all strings with the same content to save storage.
+
+s1 = "Hello";
+s2 = "Hello";   here S1 S2 & S3 are pointing to the same Object
+s3 = s1;
+
+String s4= new String("Hello");  //String Object both are pointing to different obj stored on Heap.
+String s5= new String("Hello");
+
+16. StringBuilder and String-Buffer.
+StringBuilder(mutable):
+-String Builder are like string Objects except, they can be modified.
+-They contain all the methods which are present in the string class.
+-StringBuilder Object is treated like variable length array.
+-Any time The Object's content can be modified using method Invocations or directly.
+
+String-Buffer(ThreadSafe)all methods Synchronized
+-String Buffer is exactly same as String Builder Class except String Buffer is thread Safe by virtue of having its methods Syncronized.
+
+String Tokenizer Class:
+-Allow to break String into Tokens
+-To use String Tokenizers Class, you must specify an input String and a string that contain Delimeters.
+-The Delimeters(characters that seperate tokens) must be specified .
+-Each Character in Delimeters string is considered as valid Delimeter like ",;:" all 3 must be considered while seperating Tokens.
+-Default set of delimeter contains space,Tab,NewLine ,CarriageReturn.
+
+StringTokenizer st = new StringTokenizer("my name is khan"," ");
+while(st.hasMoreTokens())
+{
+  Sout(st.nextToken())l
+}
+
+//Output
+my
+name
+is
+khan
+
+17. Formating Classes (Date,Time,Choice,locales(Resource Bundel),ReGX Not Necc Now)
+
+18.What is Inheritance?(is a kind of relationship)
+-Java.lang.object is the Implicit Superclass.
+
+-Inheritance is the ability to extend the behaviour of an existing class and continue to use the code written for original Class.
+- Reusability of code.
+- Original class is known as Super class (Parent class).
+- SubClass (ChildClass).
+- child class can add new fields and methods thus defining new behaviour.
+- Subclass can also override the behaviour of Super Class by Providing the new Implementation for inherited methods.
+- **The subclass only needs to implement difference between itself and parent**.
+- (is a kind of relationship) It must be possible to substitute subclass for a super class object.
+- all variables methods in superclass must make sense in the subclass.
+
+-extends keyword is used for inheritance.
+-Java allows only single Inheritance.class can specify only one immediate superclass.
+-All the classes are automatically Inherited from from the root class called object.
+
+Constructors:
+-Seq of Calling Superclass-->Subclass(default no arg constructor)
+
+-Object is always constructed from top class down to the bottom class.
+
+--super:
+-refers to the base, immediate parent class. It is used for calling base class constructor.
+-must be the first line in the derived class constructor super(para1,para2).
+-Can be used to call any base class methods even if it is overridden subclass.
+
+-with subclass obj you can access both public methods of superClass & public method of subclass
+
+overiding: (resolve at Runtime) add additional functionalities to the super class methods.
+-To override a superclass methods the subclass defines a methods with exactly the same signature and return type of Superclass method.
+-The method in the subclass effectively hides the method inherited from the superclass.
+-Calling Overridden Method from the subclass: super.method() avoid duplicating code  in subclass method
+-Private, Final method cannot be overridden.
+-Fields cannot be Overridden but Hidden.
+    class Parent {
+        public int x = 10;
+    }
+    class Child extends Parent {
+        public int x = 20;  // hides Parent's x
+    }
+
+Overloading:(resolve at compile-time)
+-Defining multiple method with the same name but different method Signature.
+-methods are resolved at Compile-time based on arguments you provide.
+-final,abstract,strictfp don't form a part of function signature.
+-A subclass can overload the method from its own class & also the methods from the Superclass.
+-**super class function with different signature and same name in subclass is overloaded in Java and hidden in c++.
+- In C++ If the function with the same name and signature is not virtual parent class function is bind at compile time and called base class function.
+-In C++ If the function with the same name and signature but  virtual child class  function is bind at Runtime and called.
+
+InventoryItem item = new Vcr();
+double deposit= item.calcDeposit();
+
+compiler view:
+-vcr is a kind of inventory item.
+-item can only called those methods defined in Inventory class.
+
+Runtime view:
+-Dynamically creates a VCR object.
+-when you call method method item.calcDeposit() it is Vcr's cal deposit method that is invoked if it overrides superclass method.
+otherwise inherited method is called.
+
+Inheriting Static methods(hidden):
+-method in subclass hides static method with the same signature which comes from super class.
+-method is called depending on which class call the methods.
+
+19. Upcasting and downcasting:
+-Super class reference can refer to object of subtype.
+-If a subtype object is reffered  by the super type reference it is known as upcasting.
+-**If we convert the compile-time type of supertype reference into the subtype type and then call subclass specific Method this is reffered as Downcasting.
+-Because without down casting compiler allows you to call only those methods which are defined in Super Type if Subtype object is reffered by Super Type.
+
+20.Limiting Methods and classes with final
+-you can make a method as final to prevent it from being overriden.
+-If method is performing some vital operation such as validation ,authorization checking , then it must be declared as final to prevent any one from overriding it.
+-Final class cannot be extended, hence compiler does not need to perform run-time method binding instead it can perform static binding and it can prehand decide which method to call.
+
+21.Polyorphism:(overloading and overriding)
+-many forms of same operation (loading and unloading).each implement it in its own way.
+-many ways to implement method for one operation.
+-Request operation with the same meaning to diff objects, each object implements operation in its unique way.
+-Ability of Java to execute specific method based on object reference that is used in the call.
+
+Static binding: compiler can readily define the correct version of something during compile time before program is executed.
+java member variables has static binding.
+
+Dynamic Binding: At Runtime it decides which method is to be called depending on the object the pointer is pointing to.
+
+22.Abstract class:
+-Classes that only define a part of implementation leaving the extended class to provide specific implementation.
+-Abstract class cannot be instantiated.
+-Abstract method is defined only within an abstract class, and must be implemented by subclass.
+-Each Subclass can implement abstract method differently.
+-Abstract class may contain methods that are not abstract.
+-*The concrete method from superclass can be made abstract in subclass.
+-Abstract class can have constructor in Java.
+-Abstract class cannot have any abstract method and it's ok.
+
+23.Interfaces:
+(Static methods and variables are not inherited into implementing Class they are called using Interface name only Default and abstract methods can be Overridden)
+-All its methods are abstract.
+-Cannot contain Instance data.
+-All the variables are public static final and are never inherited, variables are intiallise initially.
+-All the methods are implicitly abstract and public.
+-All class that implement the interface must provide code details for all the method of the interface.
+-Java allows a multiple inheritance of Interfaces.
+-Classes are Extend and Interfaces are implemented.
+-*Interface only shares methods and not fields.
+-Name of Interface is often an Adjective such as Sortable,Traceable ends with able.
+-Interfaces can be used as Enumeration.
+-Use Intanceof operator to determine weather an object implement an interface.
+-Use downcasting to call methods that are defined in the Interface.
+-But from java 8, we can have default methods ,when class fails to implement method default is executed and static methods.
+-static methods are like default methods except that we cant override them.
+-static method is only a part of interface and not implementing class. you can use static method with interface name.
+-sub-class interfaces take higher priority over superclass interface.
+-*If two default method with the same name from two different interfaces comes it may lead to collosion so you have to override it.
+
+interface color{
+	int RED=1;
+	int White=2;
+	int Blue=3;
+}
+-Interface Modifiers:
+public.
+abstract.
+strictfp.
+
+Types of Interfaces:
+1} Marker Interface:
+-It inform message to java compiler so that it can add special behaviour to the class implementing it.
+-Java marker Interface has no member list in it.
+ types of marker Interfaces:
+    serializable ,clonable
+
+----serializable:(Done with the Help of Object Output Stream)
+(implement serializable) object->byte stream
+-Serialization is a mechanism of converting the state of an object into a byte stream.
+Serialization is done using ObjectOutputStream.
+2 methods can be used with ObjectOutputStream      oos.writeObject(a);(convert Java Obj to Byte)  oos.readObject(a); (convert By to Java Object)
+
+
+clonaeble:
+-A class implement clonable interface  to indicate the object.clone() will make the clone of the object.
+-A class that implement clonable should override clone method whose return type is class itself.
+-Overriding clone() method of Object class eg:
+---
+public Object clone()throws CloneNotSupportedException{
+	return (DogName)super.clone();
+   }
+---
+- cloning :exact copy of object with the different name.
+- clone() method of object class can be called for cloning fields (super.clone()) but if class contain ref type variable we have to implement clone method to avoid shallow copy.
+- Same as copy constructor
+
+
+
+Single attribute comparable, multiple comparator
+----Comparable interface :this pointer can be used.     //this can be used for sorting
+-Implement the interface to make class instance as comparable.
+-The interface has one method compareTo() which determines how two compare two instances.
+ public int compareTo(objet o) //return 0 if object are equal.
+  c1.compareTo(c2)  //returns 0 if true
+
+----Comparator interface:
+compare method with 2 args returns -1,0,1.
+
+class Movie implements Comparable<Movie>
+
+// Class to compare Movies by ratings
+class RatingCompare implements Comparator<Movie>
+{
+    public int compare(Movie m1, Movie m2)
+    {
+        if (m1.getRating() < m2.getRating()) return -1;
+        if (m1.getRating() > m2.getRating()) return 1;
+        else return 0;
+    }
+}
+
+
+// Class to compare Movies by name
+class NameCompare implements Comparator<Movie>
+{
+    public int compare(Movie m1, Movie m2)
+    {
+        return m1.getName().compareTo(m2.getName());
+    }
+}
+
+Functional Interfaces(SAM Interfaces.):
+-permits exactly one abstract method inside them.
+-SAM (single abstract method).
+-they can be represented using lambda expression.
+-Functional interface can have many default and static methods.
+-functional interface (Anonymus class) lambda function.
+
+24.Exception Handling(throws and throw):
+
+UnChecked exception (Runtime time exceptions)
+
+Checked exception (compile time):
+-all the subclass of throwable, other than runtime and error are checked exception.
+-Runtime Exceptions are never checked.
+-A checked exception is a type of exception that must be either caught or declared in the method in which it is thrown. For example, the java.io.IOException is a checked exception. To understand what a checked.
+-A checked exception caught in throws don't need to implement catch for it.
+
+
+-throws keyword is in the function signature.
+-throws keyword handel checked exceptions.
+-It is used when the function has some statements that can lead to some exceptions.
+-throw : It can throw only one exception at a time.
+---
+
+// throwing only an IOException  // throwing instance of IOException
+throw new IOException();
+---
+-throws keyword can be used to declare multiple exceptions, separated by comma.
+ Whichever exception occurs, if matched with the declared ones, is thrown automatically then
+---
+// throwing multiple exceptions
+void Demo() throws excep1,excep2 (This are Checked exceptions)
+{
+// Statements where exceptions might occur.
+}
+
+---
+
+-Syntax wise throws keyword is followed by exception class names.-
+
+void main() throws IOException   //checked exception must either be caught
+{
+}
+
+--IMPETUS---
+Declaring Exceptions
+A Java method must declare in its signature the types of checked exception it may "throw" from its
+body, via the keyword "throws".
+For example, suppose that methodD() is defined as follows:
+
+public void methodD() throws XxxException, YyyException {
+ // method body throw XxxException and YyyException
+}
+
+The method's signature indicates that running methodD() may encounter two checked exceptions:
+XxxException and YyyException. In other words, some of the abnormal conditions inside
+methodD() may trigger XxxException or YyyException.
+Exceptions belonging to Error, RuntimeException and their subclasses need not be declared.
+These exceptions are called unchecked exceptions because they are not checked by the compiler.
+
+-----
+
+finally:
+The finally-block is meant for cleanup code such as closing the file, database connection regardless of whether the try block
+succeeds. The finally block is always executed (unless the catch-block prematurely terminated the current method)
+
+difference between constant and final:
+Java's final works only on primitive types and references, never on object instances themselves where the const keyword works on anything.
+
+25. Threading:
+-java supports single thread and multi-threading operations.
+-Java has a built-in support for concurrent programming by running multiple threads concurrently with a single program.
+-Ms word is running 1 process contain multiple subprocess like spelling checking,typing.
+-Thread is the smallest unit of a process.
+-when you create your java application you only use one thread that is main thread by default.
+
+uses:
+-If you want to multiplty {1,2,3,4,   .... ,5000} by  *2 it will run on single thread consider it takes time of 8sec.
+-It 4 threads are used the same task can be divided and completed in 2 Sec. by executing task on 4 threads parallely.
+-main thread will create 4 different threads t1,t2,t3,t4 and assign a task to the threads and they can run in background a main thread can perform its task.
+-considering sending req on Amazon app to search shoes it will assign new thread task to find all the shoes and main thread will work.
+-Considering web Application example if five different users request same page 5 different threads are created and each is assign to user to perform its task.
+
+Achieving Thread:
+Thread t1= new Thread(); //thread doesn't know what you want.
+you have to create a class.
+---------
+//Creating Thread Way 1:
+class MyThread extends Thread  // Every class implements run method
+{
+  int[]={6,5,1,7,8};
+  public void run()
+  {
+	for(int i=0; i<5;i++)
+	{
+		values[i]=values[i]*2;
+	}
+
+  }
+}
+
+Thread t1= new MyThread();
+t1.start()// new thread created  start  will automatically call run().
+---------
+methods :
+sleep(takes milliseconds): you want to stop for 2 Sec or 3 sec you can call sleep
+wait:
+notify:
+------Cannot use multiple Inheritance-------
+//Creating Thread Way 2:
+class MyThread extends Aclass  implements Runnable // cannot extend thread so implement Runnable.
+{
+  int[]={6,5,1,7,8};
+  public void run()
+  {
+	for(int i=0; i<5;i++)
+	{
+		values[i]=values[i]*2;
+	}
+
+  }
+}
+-If one method is busy on one core you should execute other method on other core.
+-if both the thread reaches to the scheduler simultaneously , multiple criteria on which scheduler will select one thread
+i.e ThreadPriority if priority is same it will go for random order.
+
+Demon Thread: (Thread with Low Priority)
+Daemon thread is a low priority thread (in context of JVM) that runs in background to perform tasks such as garbage collection (gc) etc.,
+they do not prevent the JVM from exiting (even if the daemon thread itself is running) when all the user threads (non-daemon threads) finish their execution.
+JVM terminates itself when all user threads (non-daemon threads) finish their execution, JVM does not care whether Daemon thread is running or not, if JVM
+finds running daemon thread (upon completion of user threads), it terminates the thread and after that shutdown itself.
+
+---Hiran
+            (concurrent execution of tasks).
+
+	Life Cycle of Thread :
+		new->runnable->running->terminated     (2-3) waiting.
+		1. new : creating a thread object.
+		2. runnable : start the thread
+		3. running : executing running method
+		4. waiting : sleep(), waiting, blocked
+		5. terminated : returns from run method.                   e.g download the image, wait : no network
+
+	1. If two threads with equal priorities are competing, they are time-sliced in round-robing fashion(os dependent).
+
+	Some thread methods :
+		1. Thread.currentThread();			//return the reference of current thread.
+		2. ref.getName();
+		3. ref.setName("pass name here");
+		4. ref.sleep(time in milliseconds);		//might throw an interupted exception.suspends threads for specified time
+		5. isAlive()                                    // toCheck weather thread is running or not
+        **      6. ref.join()					// makes main thread wait to wait untill ref execution is not completed.
+		7. ref.setPriority()                            // level of priority(MIN_PRIORITY || NORM_PRIORITY)
+		8. ref.getPriority()
+
+
+	Controlling the main thread
+	class CurrentThreadDemo {
+		public static void main(String args[]) {
+			Thread t = Thread.currentThread();
+			System.out.println("Current thread: " + t);
+
+			// change the name of the thread
+			t.setName("My Thread");
+			System.out.println("After name change: " + t);
+
+			try {
+				for(int n = 5; n > 0; n--) {
+					System.out.print(n + "	");
+					Thread.sleep(1000);
+				}
+			}catch (InterruptedException e) {
+				System.out.println("Main thread interrupted");
+			}
+		}
+	}
+	output :
+		Current thread: Thread[main,5,main]                              //[threadname, priority, groupofThread]
+		After name change: Thread[My Thread,5,main]
+		5	4	3	2	1
+Thread And Process:
+Thread is the segment of a process means a process can have multiple threads and these multiple threads are contained within a process.
+ A thread have 3 states: running, ready, and blocked.
+Thread takes less time to terminate as compared to process and like process threads do not isolate.
+
+Process: Process means the thread is in Execution
+
+Different.
+Process is isolated.                           		Threads share memory.
+Process is called heavy weight thread.	       		Thread is called a light weight process.
+Process means any program is in execution.      	Thread means segment of a process.
+Process is less efficient in term of communication.  	Thread is more efficient in terms of communication.
+Process consume more resources.				Thread consume less resources.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Questions asked:
+Technical :
+1.Difference between pass by value and pass by reference.
+2.Difference between Thread and process.
+3.What is an immutable object in Java?
+4.What is the difference between array, set, and an ArrayList in java?
+5.What happens when an exception/error occurs in our program?
+6.Can you have a return statement in a try or catch block?
+7.Difference between LinkedList and ArrayList?
+8.If You were going to write a program where you will use LinkedList or ArrayList? If there are many manipulations which one should you use?
+9.In data structure have you come across Typecasting? Two types comparable a= 20 and int b=30 how do you add these two?
+I didn’t know about comparable so he told let’s change it to object now how will you add it, upcast or downcast?
+10.Given 10 5 5 6 how to sort using bubble sort, how will you handle duplicates?
+11.Given a string find the first non-repeated character.
+12.An array consists of elements 1 to 100 all are supposed to be unique but one of them is repeated find the repeated element.
+13.Difference between a linked-hashmap and a hashmap in java.
+
+
+Technical round questions :
+i) AVL tree (code)
+ii) difference between structure and array
+iii) difference between structure and object
+iv) inheritance
+v) some basic codes to write on patterns, anagram etc
+vi) dynamic loading
+vii) threads and processes
+viii) reverse a linked list
+ix) critical section
+x) implementation of some real time systems
+
+DBMS:
+1. Different normal forms
+2. Database ACID properties.
+3. OOP concepts like encapsulation, abstraction and their real-life examples.
+4. What happens when you enter a URL in the browser? (DNS related)
+
+HR: Type
+1.Why do you want to join a finance company.
+2.Are you ever in a position where you work in a team and there is a person who doesn’t do much work? What was your role in a team and what was your impact?
+3.You are already placed in the company ‘X’ then why you want to join Credit Suisse?
+4.How were the coding challenge and technical interview?
+5.Are you okay to relocate to Bangalore, Pune or Mumbai? Company will decide the location.
+6.Tell me about your family.
+7.Tell me about a situation when you were a leader or worked in a project together?
+8.Let’s say you are working in a team of 5 and a member of your team is a childhood friend of yours. He did a mistake which will lead to a huge loss to the company which might end up your friend losing your job. You are the 1st person to find out the mistake what will you do?
+9.If your friend tells you to do a transaction on your behalf will you do?
+10.You are already placed in the company then why you want to join Credit Suisse?
