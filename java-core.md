@@ -102,12 +102,12 @@ class SingleTon {
 
 ```java
 // Manual Boxing
-Integer iref = new Integer(33); // Boxing
+Integer iref = Integer.valueOf(33); // Boxing
 int yrs = iref.intValue();      // Unboxing
 
 // Auto Boxing and Unboxing
-Integer ref = 77;               // Auto Boxing
-int val = new Integer(33);      // Auto Unboxing
+Integer boxed = 33;               // Auto Boxing
+int unboxed = boxed;      // Auto Unboxing
 ```
 
 ---
