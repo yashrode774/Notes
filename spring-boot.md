@@ -190,21 +190,33 @@ sorting:
 
 ---
 
-# Testing
+# ✅ Testing in Spring Boot
 
-- add @Test annotation to tell spring boot this is a test method.
-- there are several assertions available such as
-  - assertEquals(expected, actual);
-  - assertTrue(condition);
-  - assertFalse(condition);
-  - assertNull(object);
-  - assertNotNull(object);
-  - assertThrows(Exception.class, () -> someCode());
-  - assertAll("description", () -> { ... }, () -> { ... });
+Testing helps verify that your code works as expected. Spring Boot uses **JUnit 5** by default along with various assertion methods.
 
-### @SpringBootTest
+---
 
-- Add this to bootstrap the entire Spring application context
+## 🧪 Writing Tests
+
+Use `@Test` to mark a method as a test case.
+
+### 🔹 Common Assertions
+
+```java
+assertEquals(expected, actual);
+assertTrue(condition);
+assertFalse(condition);
+assertNull(object);
+assertNotNull(object);
+assertThrows(Exception.class, () -> someCode());
+assertAll("desc", () -> { ... }, () -> { ... });
+```
+
+---
+
+## 🚀 Integration Testing
+
+Use `@SpringBootTest` to load the full Spring context.
 
 ```java
 @SpringBootTest
@@ -221,42 +233,60 @@ class UserServiceIntegrationTest {
 }
 ```
 
-### @ParameterizedTest, @CsvSource and @CsvFileSource
+---
+
+## 🔁 Parameterized Tests
+
+Use `@ParameterizedTest` to test multiple inputs.
 
 ```java
 @ParameterizedTest
 @CsvSource({
-"1,2,3",
-"2,2,4",
-"2,2,5",
+  "1,2,3",
+  "2,2,4",
+  "2,2,5"
 })
-public void testAdding(int a, int b, int expectd) {
-assertEquals(expectd, a + b);
+void testAdding(int a, int b, int expected) {
+    assertEquals(expected, a + b);
 }
 ```
 
-### @BeforeEach @BeforeAll @AfterEach @AfterAll
+You can also use `@CsvFileSource` for external CSV input.
 
-- runs before and after, each and all test case run.
-  example:
+---
 
+## 🔄 Test Lifecycle
+
+Use these for setup/cleanup tasks:
+
+```java
+@BeforeEach   // runs before every test
+@AfterEach    // runs after every test
+@BeforeAll    // runs once before all tests (must be static)
+@AfterAll     // runs once after all tests (must be static)
 ```
-    @BeforeAll
-    static void setUp() {
-        Open a file.
-    }
-    @AfterAll
-    static void setUp() {
-        close a file.
-    }
+
+Example:
+
+```java
+@BeforeAll
+static void setUp() {
+    // Open file
+}
+
+@AfterAll
+static void tearDown() {
+    // Close file
+}
 ```
 
-(BeforeAll and AfterAll's method should be static as they only run once.)
+---
 
-### Code coverage.
+## 📈 Code Coverage
 
-- How much of the code is tested(%)
-- Install intellij plugin, Code Coverage for java.
+- Shows how much of your code is tested (%).
+- Use **IntelliJ plugin: Code Coverage for Java** or tools like **JaCoCo**.
+
 
 # 📝 Logging
 
