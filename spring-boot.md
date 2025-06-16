@@ -258,32 +258,38 @@ assertEquals(expectd, a + b);
 - How much of the code is tested(%)
 - Install intellij plugin, Code Coverage for java.
 
-# Logging
+# 📝 Logging
 
-Logging is the recording of application events (e.g., errors, info, debug statements) to help trace what's happening at runtime.
+Logging is the recording of application events (e.g., errors, info, debug messages) to trace runtime behavior.
 
-- Uses SLF4J(Simple Logging Facade for Java)
-- SLF4J uses Logback as the underlying implementation
+- Uses **SLF4J** (Simple Logging Facade for Java)
+- By default, SLF4J uses **Logback** under the hood
 
-### How to use
+---
 
-- @Slf4j add this annotation, which is part of lombok (without lombok, you will have to create a logger instance with the help of LoggerFactory)
-- `log.info("Your message here!");`
+## ✅ How to Use
+
+- Add `@Slf4j` (from Lombok)
+- Without Lombok: `Logger log = LoggerFactory.getLogger(ClassName.class);`
+- Log example:  
+  ```java
+  log.info("📝 Your message here!");
 
 ### Logging levels
 
-- trace
-- debug
-- info
-- warn
-- error
-  For info you will see all below it(inclusive).
+  trace < debug < info < warn < error
+For info you will see all messages at that level and above(right)(inclusive).
 
-Some available configurations:
+## ⚙️ Logging Configuration (application.properties)
 
 ```properties
+# Log file name
 logging.file.name=app.log
+
+# Root logging level
 logging.level.root=INFO
+
+# Set logging level for a specific package
 logging.level.com.example=DEBUG
 ```
 
