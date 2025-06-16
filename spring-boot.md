@@ -101,7 +101,11 @@ public String addUser(@RequestBody User user) { ... }```
 @Scope("prototype")
 By default, scope is Singleton.
 
-------
+-------------------------
+
+# **JPA**
+
+Java Persistence API (JPA), which is the standard specification for mapping Java objects to relational databases.
 
 ### Three types of repositories
 
@@ -132,14 +136,7 @@ in `JpaRepository` like `List<Applicant> findByPhone(String number);` and we are
     private List<Order> orders;
 ```
 
----
-
-# JPA
-
-Java Persistence API (JPA), which is the standard specification for mapping Java objects to relational databases.
-
 ## cascading
-
 cascading operations propagates changes made to entities across relationships.
 CascadeType.ALL
 CascadeType.PERSIST
