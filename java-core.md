@@ -727,6 +727,11 @@ class MyThread extends Aclass  implements Runnable // cannot extend thread so im
 
   }
 }
+
+Main:
+	MyThread obj = new MyThread();   // Create the object
+	Thread thread = new Thread(obj); // Pass it to Thread constructor
+	thread.start(); 
 ```
 - If one method is busy on one core you should execute other method on other core.
 - if both the thread reaches to the scheduler simultaneously , multiple criteria on which scheduler will select one thread
