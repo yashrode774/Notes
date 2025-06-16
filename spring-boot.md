@@ -55,15 +55,23 @@ Shorthands:
 
 ## @PathVariable
 
-`@GetMapping("/users/{id}") public User getUser(@PathVariable int id) { ... }`
+```
+@GetMapping("/users/{id}") 
+public User getUser(@PathVariable int id) { ... }
+```
 
 ## @RequestParam
 
-`@GetMapping("/search") public String search(@RequestParam String keyword) { ... }`
+```
+@GetMapping("/search")
+public String search(@RequestParam String keyword) { ... }
+```
 
 ## @RequestBody
 
-`@PostMapping("/users") public String addUser(@RequestBody User user) { ... }`
+```
+@PostMapping("/users") 
+public String addUser(@RequestBody User user) { ... }```
 
 ## @Transactional
 
