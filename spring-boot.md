@@ -106,12 +106,12 @@ By default, scope is Singleton.
 ### Three types of repositories
 
 1. CrudRepository + ListCrudRepository
-   |
-   \\/
+    ||
+    \/
 2. PagingAndSortingRepository + ListPagingAndSortingRepository
-   |
-   \\/
-3. JpCrudRepository
+    ||
+    \/
+3. JpaCrudRepository
 
 ### Custom Query method
 
