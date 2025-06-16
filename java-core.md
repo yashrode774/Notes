@@ -190,6 +190,21 @@ if (obj instanceof Dog) {
 - Don't check with the reference variable's declared type; check the **actual object** it points to.
 
 ## 7.labeled break and labeled continue.
+### break label
+Exits the labeled loop/block entirely.
+```
+outerLoop: for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 3; j++) {
+        if (i * j == 4) {
+            break outerLoop;
+        }
+        System.out.println(i + " " + j);
+    }
+}
+```
+Once i * j == 4, it breaks out of the outer loop, not just the inner one.
+### labeled continue
+Skips to the next iteration of the labeled loop.
 
 ## 8. Modifiers
 
