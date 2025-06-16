@@ -326,3 +326,36 @@ management.endpoint.health.show-details=always
     </exclusions>
 </dependency>
 ```
+
+
+# 🌐 Global Exception Handling in Spring Boot
+
+In Spring Boot, **Global Exception Handling** allows you to manage exceptions from a single place, rather than handling them in each controller.
+
+---
+
+## ✅ Steps to Implement
+
+1. **Create a class annotated with `@ControllerAdvice`.** (@ControllerAdvice makes the class global across all controllers.)
+2. **Extend** `ResponseEntityExceptionHandler` to inherit Spring’s default exception handling.
+3. Inside this class, define methods annotated with `@ExceptionHandler` to handle specific exceptions globally. (@ExceptionHandler is used to specify which exception a method should handle.)
+
+---
+
+## 📘 Example
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleNullPointerException(NullPointerException ex) {
+        return new ResponseEntity<>("Null value found!", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<String> handleCustomException(CustomException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}
