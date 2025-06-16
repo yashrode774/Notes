@@ -151,7 +151,7 @@ CascadeType.DETACH
 `@JoinColumn(name = "column_name", referencedColumnName = "target_column")`
 referencedColumnName is optional, if not given it uses the primary key of the referenced table as referencedColumnName.
 
-```
+```java
 @Entity
 public class Employee {
 @Id
