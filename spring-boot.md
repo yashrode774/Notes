@@ -215,24 +215,73 @@ assertAll("desc", () -> { ... }, () -> { ... });
 ---
 
 ## 🚀 Integration Testing
+Let's write a test for 
+```java
+@Service
+public class UserService {
 
-Use `@SpringBootTest` to load the full Spring context.
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User create(String name) {
+        return userRepository.save(new User(name));
+    }
+}
+```
+
+1. Use `@SpringBootTest` to load the full Spring context.
 
 ```java
+// Integration Test - Loads Spring context
 @SpringBootTest
 class UserServiceIntegrationTest {
 
     @Autowired
     private UserService userService;
 
+    @MockBean
+    private UserRepository userRepository;
+
     @Test
     void testCreateUser() {
-        User user = userService.create("Yash");
-        assertThat(user.getName()).isEqualTo("Yash");
+        User dummyUser = new User("Yash");
+        when(userRepository.save(any(User.class))).thenReturn(dummyUser);
+
+        User result = userService.create("Yash");
+
+        assertEquals("Yash", result.getName());
+        verify(userRepository).save(any(User.class));
     }
 }
 ```
 
+2. Unit Test using @ExtendWith(MockitoExtension.class), @InjectMocks and @Mock
+```
+// Unit Test - Tests UserService in isolation using Mockito
+@ExtendWith(MockitoExtension.class)
+class UserServiceUnitTest {
+
+    @Mock
+    private UserRepository userRepository;
+
+    @InjectMocks
+    private UserService userService;
+
+    @Test
+    void testCreateUser() {
+        User dummyUser = new User("Yash");
+        when(userRepository.save(any(User.class))).thenReturn(dummyUser);
+
+        User result = userService.create("Yash");
+
+        assertEquals("Yash", result.getName());
+        verify(userRepository).save(any(User.class));
+    }
+}
+```
 ---
 
 ## 🔁 Parameterized Tests
