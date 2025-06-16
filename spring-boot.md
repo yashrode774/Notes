@@ -300,22 +300,38 @@ https://refactorfirst.com/distributed-tracing-with-opentelemetry-jaeger-in-sprin
 
 ---
 
-# Monitoring
+# 📊 Monitoring
 
-- Monitoring involves collecting metrics, health checks, and performance data
+Monitoring involves collecting **metrics**, **health checks**, and **performance data** from the application.
 
-### Spring Boot Actuator
+---
 
-- /actuator/health -> App health status
-- /actuator/beans -> All registered beans
-- /actuator/mappings -> All request mappings
-- /actuator/metrics -> App/system metrics (CPU, memory, etc.)
-- /actuator/env -> Current environment properties
-- /actuator/httptrace -> Recent HTTP requests (last 100 by default)
+## 🚀 Spring Boot Actuator
+
+Spring Boot provides built-in monitoring endpoints via the **Actuator** module.
+
+### 🔹 Common Endpoints
+
+| Endpoint              | Description                                 |
+|-----------------------|---------------------------------------------|
+| `/actuator/health`    | App health status                           |
+| `/actuator/beans`     | All registered beans                        |
+| `/actuator/mappings`  | All request mappings                        |
+| `/actuator/metrics`   | App & system metrics (CPU, memory, etc.)    |
+| `/actuator/env`       | Current environment properties              |
+| `/actuator/httptrace` | Recent HTTP requests (last 100 by default)  |
+
+---
+
+## ⚙️ Configuration (application.properties)
 
 ```properties
-management.endpoints.web.exposure.include=* or (health,metrics)
+# Expose specific or all actuator endpoints
+management.endpoints.web.exposure.include=*
+
+# Show detailed health info
 management.endpoint.health.show-details=always
+alth.show-details=always
 ```
 
 ## Can we override or replace the Embedded tomcat server in Spring Boot
