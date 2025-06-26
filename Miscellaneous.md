@@ -49,4 +49,34 @@ public class Main {
 ```
 ## Note: In the case of Set, List, or Date as data members, a deep copy should be made inside the constructor. This is because these objects are mutable, and without copying, their state could be modified from outside the class even after being assigned.
 
+## ✅ Thread-Safe Singleton Class in Java (with Double-Checked Locking)
+
+```java
+class Singleton {
+
+    // Volatile ensures visibility of changes to instance across threads.
+    private static volatile Singleton instance;
+
+    // Private constructor prevents instantiation from outside the class.
+    private Singleton() {}
+
+    // Public method to provide access to the Singleton instance.
+    public static Singleton getInstance() {
+        if (instance == null) { // First check (no lock)
+            synchronized (Singleton.class) {
+                if (instance == null) { // Second check (with lock)
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Singleton obj = Singleton.getInstance(); // Accessing singleton instance
+        System.out.println(obj); // Verifying singleton by printing the reference
+    }
+}
 
