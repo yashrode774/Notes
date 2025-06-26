@@ -8,3 +8,45 @@
 - When we add an element to a HashSet, it internally calls:
      - map.put(element, PRESENT);
      - Where `private static final Object PRESENT = new Object();`
+ 
+## How to make a class Immutable
+```java
+package org.example;
+
+// Immutable class
+final class Immutable { // Class needs to be final so that cannot be extended and overridden.
+    private final int id; // Private makes in-accessible out of class, final makes the unable to change.
+    private final String name;
+    public Immutable(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    // Don't create a setter so the data members can only be assigned while
+    // creating the object and cannot be changed with the setter.
+    int getId() {
+        return id;
+    }
+    String getName() {
+        return name;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Immutable obj = new Immutable(1, "yash");
+        int id1 = obj.getId();
+        String name1 = obj.getName();
+        System.out.println(id1);
+        System.out.println(name1);
+
+        // These assignments don't affect the original object
+        id1 = 10;
+        name1 = "miks";
+
+        System.out.println(obj.getId() + obj.getName());
+    }
+}
+```
+## Note: In the case of Set, List, or Date as data members, a deep copy should be made inside the constructor. This is because these objects are mutable, and without copying, their state could be modified from outside the class even after being assigned.
+
+
