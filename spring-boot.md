@@ -79,7 +79,40 @@ public String addUser(@RequestBody User user) { ... }```
   then transaction revert back the first operation also.
   `@Transactional public void updateUser(User user) { ... }`
 
-## Spring Bean Scopes
+## Propagation Types
+
+- **`REQUIRED`**  
+  If the calling method has an active transaction, the called method will **participate in it**.  
+  If not, a **new transaction** will be started.
+
+- **`REQUIRES_NEW`**  
+  Always starts a **new transaction**, even if the calling method already has one.  
+  The caller's transaction is **suspended**.  
+  _Useful for tasks like sending notifications._
+
+- **`MANDATORY`**  
+  The calling method **must already have an active transaction**.  
+  If not, an **exception is thrown**.
+
+- **`NESTED`**  
+  If a transaction exists, the method executes within a **nested transaction** using a **savepoint**.  
+  If an exception occurs, changes made within this method are **rolled back to the savepoint**, but the outer transaction can continue.  
+  If no transaction exists, it behaves like `REQUIRED`.
+
+- **`SUPPORTS`**  
+  The method will **join the transaction if one exists**; otherwise, it will **run non-transactionally**.
+
+- **`NOT_SUPPORTED`**  
+  The method will **not run in a transaction**, even if the caller has one.  
+  The existing transaction is **suspended**.  
+  _Typically used for third-party API calls._
+
+- **`NEVER`**  
+  The method must **not run within a transaction**.  
+  If a transaction exists, an **exception is thrown**.
+
+
+----------------------------------
 
 1. Singleton
    - Only one shared instance per Spring container
