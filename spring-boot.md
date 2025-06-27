@@ -80,7 +80,9 @@ public String addUser(@RequestBody User user) { ... }
   then transaction revert back the first operation also.
   `@Transactional public void updateUser(User user) { ... }`
 
-  ## Propagation Types
+  ## Propagation
+  - Defines **how a transaction is propagated** from the **calling method** to the **called method**.
+  - The **default propagation** type is `REQUIRED`.
 
 - **`REQUIRED`**  
   If the calling method has an active transaction, the called method will **participate in it**.  
