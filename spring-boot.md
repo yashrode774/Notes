@@ -159,6 +159,12 @@ public String addUser(@RequestBody User user) { ... }
 - 🧠 *Example:*  
   Transactions behave as if they run **one after another**, not in parallel.
 
+```java
+@Transactional(isolation = Isolation.READ_COMMITTED)
+public void someBusinessMethod() {
+    // your logic here
+}
+```
 --------------------------------------
 
 ## Scope of beans
