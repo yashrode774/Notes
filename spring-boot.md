@@ -125,6 +125,7 @@ public String addUser(@RequestBody User user) { ... }
 
 ## SQL Isolation Levels (with Examples)
 
+Default isolation level in mysql is REPEATABLE READ and it is different for different db.
 ### 1. READ UNCOMMITTED
 - 🔓 No locks → allows **dirty reads**
 - ❌ Allows: **Dirty Reads**, **Non-Repeatable Reads**, **Phantom Reads**
