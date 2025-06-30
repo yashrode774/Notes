@@ -122,6 +122,43 @@ public String addUser(@RequestBody User user) { ... }
         // Throws exception if sending fails
     }
   ```
+
+## SQL Isolation Levels (with Examples)
+
+### 1. READ UNCOMMITTED
+- 🔓 No locks → allows **dirty reads**
+- ❌ Allows: **Dirty Reads**, **Non-Repeatable Reads**, **Phantom Reads**
+- 🧠 *Example:*  
+  T1 updates a balance,  
+  T2 reads it before T1 commits → may read incorrect value.
+
+---
+
+### 2. READ COMMITTED
+- ✅ Only reads **committed** data → prevents dirty reads  
+- ❌ Still allows: **Non-Repeatable Reads**, **Phantom Reads**
+- 🧠 *Example:*  
+  T1 reads a row.  
+  T2 updates and commits the row.  
+  T1 re-reads → sees different value.
+
+---
+
+### 3. REPEATABLE READ
+- ✅ Prevents **Dirty Reads**, **Non-Repeatable Reads**  
+- ❌ Still allows: **Phantom Reads**
+- 🧠 *Example:*  
+  T1 reads rows with salary > 5000.  
+  T2 inserts a new row with salary 6000.  
+  T1 re-runs the same query → sees new row.
+
+---
+
+### 4. SERIALIZABLE
+- ✅ Prevents **Dirty Reads**, **Non-Repeatable Reads**, **Phantom Reads**
+- 🧠 *Example:*  
+  Transactions behave as if they run **one after another**, not in parallel.
+
 --------------------------------------
 
 ## Scope of beans
