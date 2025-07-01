@@ -79,4 +79,42 @@ public class Main {
         System.out.println(obj); // Verifying singleton by printing the reference
     }
 }
+```
+------------------------
+# N+1 Problem in Hibernate/JPA
+
+## ❓ What is the N+1 Problem?
+
+- It occurs when fetching a parent entity and lazily loading its child entities.
+- 1 query fetches the parent entities.
+- N additional queries are fired — one for each parent to fetch its children.
+### ➕ Total Queries = N (parents) + 1 = **N+1 Queries**
+
+## 📦 Example
+
+### Entities:
+- `Customer` (parent)
+- `Address` (child) — One-to-Many relationship
+
+### Code:
+```java
+List<Customer> customers = customerRepo.findAll();
+for (Customer c : customers) {
+    List<Address> addresses = c.getAddresses(); // Triggers query per customer
+}
+```
+In the above example 1 query will fetch all the customers and N queries will fetch their respectivce address**es**
+
+### soluton
+1. @EntityGraph
+```java
+@EntityGraph(attributePaths = {"addresses"})
+List<Customer> findAll();
+```
+2. JOIN FETCH
+```java
+@Query("SELECT c FROM Customer c JOIN FETCH c.addresses")
+List<Customer> findAllWithAddresses();
+```
+
 
