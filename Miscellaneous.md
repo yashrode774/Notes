@@ -1,3 +1,18 @@
+# SOLID Principles
+
+- **Single Responsibility**: Every method/class (Entity) should have single responsibility.
+- **Open/Closed Principle**: Entities should be open for extension/closed for modification.
+- **Liskov Substitution Principle**: Object of the parent class should be replaceable by object of the child class.
+- **Interface Segregation**: Prefer many small interfaces over several bigger ones.
+- **Dependency Inversion**: High-level modules should depend on interfaces, not concrete classes.
+
+# ACID Properties of Database
+
+- **Atomicity**: A transaction (set of instructions) should either be completed or failed (rolled back).
+- **Consistency**: Database should go from one consistent state to another.
+- **Isolation**: Each transaction should be isolated from others.
+- **Durability**: If the transaction is committed, its changes are permanently stored even if the system goes down.
+
 ## Internal working of ArrayList
 - ArrayList uses array in the background
 - Initially an empty array is created(Before java 8, on initialization the size of the array used to be 10) and when we add the first element the array size changes to 10
