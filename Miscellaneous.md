@@ -1,4 +1,4 @@
-# SOLID Principles
+## SOLID Principles
 
 - **Single Responsibility**: Every method/class (Entity) should have single responsibility.
 - **Open/Closed Principle**: Entities should be open for extension/closed for modification.
@@ -6,7 +6,7 @@
 - **Interface Segregation**: Prefer many small interfaces over several bigger ones.
 - **Dependency Inversion**: High-level modules should depend on interfaces, not concrete classes.
 
-# ACID Properties of Database
+## ACID Properties of Database
 
 - **Atomicity**: A transaction (set of instructions) should either be completed or failed (rolled back).
 - **Consistency**: Database should go from one consistent state to another.
