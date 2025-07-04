@@ -74,6 +74,122 @@ public String search(@RequestParam String keyword) { ... }
 public String addUser(@RequestBody User user) { ... }
 ```
 
+## Scope of beans
+1. Singleton
+   - Only one shared instance per Spring container
+   - Used for stateless services, repositories, etc.
+2. Prototype
+   - Spring creates a new instance every time you request the bean.
+   - Good for stateful beans (example ShoppingCart)
+3. Request
+   - One bean instance per HTTP request.
+   - Created at the start of request, destroyed when request completes.
+4. Session
+   - One bean instance per user HTTP session.
+   - when you want to store user-specific data
+5. Application
+   - One bean instance per ServletContext (application-wide).
+   - Similar to singleton but scoped to a web application.
+
+### How to use
+@Scope("prototype")
+By default, scope is Singleton.
+
+-------------------------
+
+# **JPA**
+
+Java Persistence API (JPA), which is the standard specification for mapping Java objects to relational databases.
+
+### Three types of repositories
+
+1. CrudRepository + ListCrudRepository
+    ⬇️
+2. PagingAndSortingRepository + ListPagingAndSortingRepository
+    ⬇️
+3. JpaCrudRepository
+
+### Custom Query method
+
+For the simple operations like findByName, findByAge we just need to add the method declaration
+in `JpaRepository` like `List<Applicant> findByPhone(String number);` and we are all se to use findByPhone method.
+
+### Fetch Types in JPA (and Spring Data JPA)
+
+- Lazy and Eager
+  FetchType.LAZY	Related entities are loaded on demand, when accessed
+  FetchType.EAGER	Related entities are loaded immediately, with the parent entity
+
+```
+    @OneToOne(fetch = FetchType.EAGER) // Eager loading
+    private Address address;
+
+    @OneToMany(fetch = FetchType.LAZY) // Lazy loading
+    private List<Order> orders;
+```
+
+## cascading
+cascading operations propagates changes made to entities across relationships.
+```text
+CascadeType.ALL
+CascadeType.PERSIST
+CascadeType.MERGE
+CascadeType.REMOVE
+CascadeType.REFRESH
+CascadeType.DETACH
+```
+
+## @JoinColumn
+
+@JoinColumn defines which column in the current table will store the foreign key.
+`@JoinColumn(name = "column_name", referencedColumnName = "target_column")`
+referencedColumnName is optional, if not given it uses the primary key of the referenced table as referencedColumnName.
+
+```java
+@Entity
+public class Employee {
+@Id
+@GeneratedValue
+private Long id;@ManyToOne
+@JoinColumn(name="department_id")
+private Department department;// other fields and methods
+}
+```
+
+## JPQL and Native Queries
+
+- `@Query("SELECT u FROM User u WHERE u.email = :email")`
+- Use native SQL with nativeQuery = true
+
+## @Query
+
+In Spring Data JPA, the @Query annotation is used to define custom queries.
+The nativeQuery attribute controls whether the query is a **native SQL query** or a JPQL
+(Java Persistence Query Language) query.
+
+### nativeQuery = false
+
+```java
+@Query(nativeQuery = true, value = "SELECT * FROM Student ORDER BY age")  List<Student> findAllStudentsOrderByAge();
+```
+
+### nativeQuery = false
+
+```java
+@Query("SELECT s FROM Student s ORDER BY s.age") List<Student> findAllStudentsOrderByAge();
+```
+
+## Pagination and Sorting
+
+```java
+Page<User> findAll(Pageable pageable); pageable = PageRequest.of(page, size, Sort.by("name")) // paging + sorting
+```
+
+sorting:
+```java 
+userRepository.findAll(Sort.by("name").descending());
+```
+
 ## @Transactional
 
 - In above example if updateUser has two db operations and if one of them fails
@@ -168,113 +284,6 @@ public void someBusinessMethod() {
 ```
 --------------------------------------
 
-## Scope of beans
-1. Singleton
-   - Only one shared instance per Spring container
-   - Used for stateless services, repositories, etc.
-2. Prototype
-   - Spring creates a new instance every time you request the bean.
-   - Good for stateful beans (example ShoppingCart)
-3. Request
-   - One bean instance per HTTP request.
-   - Created at the start of request, destroyed when request completes.
-4. Session
-   - One bean instance per user HTTP session.
-   - when you want to store user-specific data
-5. Application
-   - One bean instance per ServletContext (application-wide).
-   - Similar to singleton but scoped to a web application.
-
-### How to use
-@Scope("prototype")
-By default, scope is Singleton.
-
--------------------------
-
-# **JPA**
-
-Java Persistence API (JPA), which is the standard specification for mapping Java objects to relational databases.
-
-### Three types of repositories
-
-1. CrudRepository + ListCrudRepository
-    ||
-    \/
-2. PagingAndSortingRepository + ListPagingAndSortingRepository
-    ||
-    \/
-3. JpaCrudRepository
-
-### Custom Query method
-
-For the simple operations like findByName, findByAge we just need to add the method declaration
-in `JpaRepository` like `List<Applicant> findByPhone(String number);` and we are all se to use findByPhone method.
-
-### Fetch Types in JPA (and Spring Data JPA)
-
-- Lazy and Eager
-  FetchType.LAZY	Related entities are loaded on demand, when accessed
-  FetchType.EAGER	Related entities are loaded immediately, with the parent entity
-
-```
-    @OneToOne(fetch = FetchType.EAGER) // Eager loading
-    private Address address;
-
-    @OneToMany(fetch = FetchType.LAZY) // Lazy loading
-    private List<Order> orders;
-```
-
-## cascading
-cascading operations propagates changes made to entities across relationships.
-CascadeType.ALL
-CascadeType.PERSIST
-CascadeType.MERGE
-CascadeType.REMOVE
-CascadeType.REFRESH
-CascadeType.DETACH
-
-## @JoinColumn
-
-@JoinColumn defines which column in the current table will store the foreign key.
-`@JoinColumn(name = "column_name", referencedColumnName = "target_column")`
-referencedColumnName is optional, if not given it uses the primary key of the referenced table as referencedColumnName.
-
-```java
-@Entity
-public class Employee {
-@Id
-@GeneratedValue
-private Long id;@ManyToOne
-@JoinColumn(name="department_id")
-private Department department;// other fields and methods
-}
-```
-
-## JPQL and Native Queries
-
-- `@Query("SELECT u FROM User u WHERE u.email = :email")`
-- Use native SQL with nativeQuery = true
-
-## @Query
-
-In Spring Data JPA, the @Query annotation is used to define custom queries.
-The nativeQuery attribute controls whether the query is a **native SQL query** or a JPQL
-(Java Persistence Query Language) query.
-
-### nativeQuery = false
-
-`@Query(nativeQuery = true, value = "SELECT * FROM Student ORDER BY age")  List<Student> findAllStudentsOrderByAge();`
-
-### nativeQuery = false
-
-`@Query("SELECT s FROM Student s ORDER BY s.age") List<Student> findAllStudentsOrderByAge();`
-
-## Pagination and Sorting
-
-`Page<User> findAll(Pageable pageable); pageable = PageRequest.of(page, size, Sort.by("name"))` // paging + sorting
-
-sorting:
-`userRepository.findAll(Sort.by("name").descending());`
 
 ---
 
