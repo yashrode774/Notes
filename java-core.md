@@ -3,7 +3,7 @@
 ## JDK, JRE, JVM
 
 - **JDK**: Tool necessary to compile, document, and package Java programs. (JRE + Development tools)
-- **JRE**: Runtime environment in which Java bytecode can be executed.
+- **JRE**: Runtime environment in which Java bytecode can be executed.(provides libraries)
 - **JVM**: Abstract machine that provides a runtime environment to execute Java bytecode.
 
 ## Singleton Class
