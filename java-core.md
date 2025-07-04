@@ -741,9 +741,10 @@ Callable<String> task = () -> {
     Thread.sleep(1000);
     return "Task completed!";
 };
+
 Future<String> result = executorService.submit(task);
 System.out.println(result.get());
-
+```
 
 ---Hiran  
 (concurrent execution of tasks).
