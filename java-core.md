@@ -728,6 +728,23 @@ they do not prevent the JVM from exiting (even if the daemon thread itself is ru
 JVM terminates itself when all user threads (non-daemon threads) finish their execution, JVM does not care whether Daemon thread is running or not, if JVM
 finds running daemon thread (upon completion of user threads), it terminates the thread and after that shutdown itself.
 
+### Callable in Java
+
+- `Callable` is an interface in `java.util.concurrent` used to define tasks that return a result and may throw a checked exception.
+- Unlike `Runnable`, which returns `void`, `Callable` returns a value of type `T`.
+- Callable tasks are submitted to an `ExecutorService` using the `submit()` method, which returns a `Future<T>`.
+- The result of the computation can be retrieved using `future.get()` (blocking call).
+
+**Example:**
+```java
+Callable<String> task = () -> {
+    Thread.sleep(1000);
+    return "Task completed!";
+};
+Future<String> result = executorService.submit(task);
+System.out.println(result.get());
+
+
 ---Hiran  
 (concurrent execution of tasks).
 
