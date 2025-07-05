@@ -103,7 +103,7 @@ public class Main {
 - It occurs when fetching a parent entity and lazily loading its child entities.
 - 1 query fetches the parent entities.
 - N additional queries are fired — one for each parent to fetch its children.
-### ➕ Total Queries = N (parents) + 1 = **N+1 Queries**
+### ➕ Total Queries = 1 (parents) + N = **N+1 Queries**
 
 ## 📦 Example
 
