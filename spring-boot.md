@@ -167,7 +167,7 @@ In Spring Data JPA, the @Query annotation is used to define custom queries.
 The nativeQuery attribute controls whether the query is a **native SQL query** or a JPQL
 (Java Persistence Query Language) query.
 
-### nativeQuery = false
+### nativeQuery = true
 
 ```java
 @Query(nativeQuery = true, value = "SELECT * FROM Student ORDER BY age")  List<Student> findAllStudentsOrderByAge();
