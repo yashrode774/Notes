@@ -559,7 +559,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 }
 ```
 
-# 🛡️ Spring Boot Interceptor Notes
+# 🛡️ Spring Boot Interceptor
 
 - An **interceptor** is a component that sits **between the servlet container and the controller**.
 - It is used for tasks like **authentication, logging, modifying requests/responses**, etc.
