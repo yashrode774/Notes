@@ -557,3 +557,49 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 }
+```
+
+# 🛡️ Spring Boot Interceptor Notes
+
+- An **interceptor** is a component that sits **between the servlet container and the controller**.
+- It is used for tasks like **authentication, logging, modifying requests/responses**, etc.
+- To create an interceptor:
+  - Implement the `HandlerInterceptor` interface.
+  - Override any of these (default)methods as needed:
+    - `preHandle()` – Called **before** the request reaches the controller.
+    - `postHandle()` – Called **after** controller execution but **before** the response is sent.
+    - `afterCompletion()` – Called **after** the complete request has finished.
+
+> ✅ You only need to override the methods you actually need.
+
+- Interceptors must be **registered** via a config class implementing `WebMvcConfigurer`.
+
+---
+
+## ✅ Example
+
+### 1. Interceptor Class
+
+```java
+@Component
+public class MyInterceptor implements HandlerInterceptor {
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        System.out.println("Pre Handle: Checking authentication...");
+        return true; // true = continue to controller, false = abort
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, 
+                           Object handler, ModelAndView modelAndView) {
+        System.out.println("Post Handle: Modifying response...");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
+                                Object handler, Exception ex) {
+        System.out.println("After Completion: Logging cleanup...");
+    }
+}
+```
