@@ -603,3 +603,20 @@ public class MyInterceptor implements HandlerInterceptor {
     }
 }
 ```
+
+### 2. Configuration Class
+```java
+@Configuration
+public class InterceptorConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private MyInterceptor myInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(myInterceptor)
+                .addPathPatterns("/api/**")         // Include
+                .excludePathPatterns("/login/**");  // Exclude
+    }
+}
+```
